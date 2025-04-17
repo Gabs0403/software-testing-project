@@ -66,6 +66,42 @@ public class HomePage {
         Thread.sleep(7000);
     }
 
+    @Test(priority = 3)
+    void headerMenu() throws InterruptedException {
+        // wait for page to load
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[1]/div/a")));
+
+        // make the footer menu appear
+        WebElement newMenuItem = driver.findElement((By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[1]/div/a")));
+        actions.moveToElement(newMenuItem).perform();
+        Thread.sleep(500);
+
+        // make the footer menu appear
+        WebElement menMenuItem = driver.findElement((By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[2]/div/a")));
+        actions.moveToElement(menMenuItem).perform();
+        Thread.sleep(500);
+
+        // make the footer menu appear
+        WebElement womenMenuItem = driver.findElement((By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[3]/div/a")));
+        actions.moveToElement(womenMenuItem).perform();
+        Thread.sleep(500);
+
+        // make the footer menu appear
+        WebElement kidsMenuItem = driver.findElement((By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[4]/div/a")));
+        actions.moveToElement(kidsMenuItem).perform();
+        Thread.sleep(500);
+
+        // make the footer menu appear
+        WebElement jordanMenuItem = driver.findElement((By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[5]/div/a")));
+        actions.moveToElement(jordanMenuItem).perform();
+        Thread.sleep(500);
+
+        // make the footer menu appear
+        WebElement sportMenuItem = driver.findElement((By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[6]/div/button")));
+        actions.moveToElement(sportMenuItem).perform();
+        Thread.sleep(500);
+    }
+
     // fully iterate back and forth through the footer slider and take a screenshot each iteration
     @Test(priority = 4)
     void footerSlider() throws InterruptedException, IOException {
