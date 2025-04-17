@@ -49,25 +49,23 @@ public class HomePage {
     @Test(priority = 2)
     void videoBanner() throws InterruptedException {
         // Wait until the pause button is clickable
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"swiper-21a3d0af-c8cc-41a9-87a1-b719017f8a24\"]/div[3]/button")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"swiper-c3b05571-1fb9-4478-bd23-af634d016821\"]/div[3]/button")));
         Thread.sleep(1000);
 
         // Click to pause the video
-        WebElement pauseButton = driver.findElement(By.xpath("//*[@id=\"swiper-21a3d0af-c8cc-41a9-87a1-b719017f8a24\"]/div[3]/button"));
+        WebElement pauseButton = driver.findElement(By.xpath("//*[@id=\"swiper-c3b05571-1fb9-4478-bd23-af634d016821\"]/div[3]/button"));
         pauseButton.click();
         Thread.sleep(1000);
 
         // Click the 'next' button on the video banner multiple times
-        WebElement nextButton = driver.findElement(By.xpath("//*[@id=\"swiper-21a3d0af-c8cc-41a9-87a1-b719017f8a24\"]/div[3]/div/button[2]"));
-        nextButton.click();
-        Thread.sleep(1000);
+        WebElement nextButton = driver.findElement(By.xpath("//*[@id=\"swiper-c3b05571-1fb9-4478-bd23-af634d016821\"]/div[3]/div/button[2]"));
         nextButton.click();
         Thread.sleep(1000);
         nextButton.click();
         Thread.sleep(1000);
 
         // Click the 'previous' button to go back one card
-        WebElement prevButton = driver.findElement(By.xpath("//*[@id=\"swiper-21a3d0af-c8cc-41a9-87a1-b719017f8a24\"]/div[3]/div/button[1]"));
+        WebElement prevButton = driver.findElement(By.xpath("//*[@id=\"swiper-c3b05571-1fb9-4478-bd23-af634d016821\"]/div[3]/div/button[1]"));
         prevButton.click();
         Thread.sleep(1000);
 
@@ -107,12 +105,12 @@ public class HomePage {
         Thread.sleep(1000);
     }
 
-    // Test to interact with a product slider and take screenshots of each product
     @Test(priority = 4)
     void slider() throws InterruptedException, IOException {
+        // wait for the page to load
         wait.until(ExpectedConditions.elementToBeClickable(By.className("swiper-button-next")));
 
-        // Screenshot the first card (Air Jordan 1)
+        // move to the next swiper button and take a screenshot of the Air Jordan 1 card
         WebElement swiperButtonNext = driver.findElement(By.className("swiper-button-next"));
         actions.moveToElement(swiperButtonNext).perform();
         TakesScreenshot screenshot = (TakesScreenshot) driver;
@@ -120,22 +118,83 @@ public class HomePage {
         File des1 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Air Jordan 1.png");
         FileHandler.copy(src1, des1);
 
-        // Capture and save screenshots of each slider card
-        String[] productNames = {"Dunk", "Air Force 1", "Vomero", "Cortez", "Air Max", "Blazer"};
-        for (String product : productNames) {
-            swiperButtonNext.click();
-            Thread.sleep(1000);
-            File src = screenshot.getScreenshotAs(OutputType.FILE);
-            File des = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\" + product + ".png");
-            FileHandler.copy(src, des);
-        }
+        // iterate through to the Dunk card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
 
-        // Navigate back using previous button
+        File src2 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des2 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Dunk.png");
+        FileHandler.copy(src2, des2);
+
+        // iterate through to the Air Force 1 card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
+
+        File src3 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des3 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Field General.png");
+        FileHandler.copy(src3, des3);
+
+        // iterate through to the Vomero card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
+
+        File src4 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des4 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Air Force 1.png");
+        FileHandler.copy(src4, des4);
+
+        // iterate through to the Cortez card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
+
+        File src5 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des5 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Air Max.png");
+        FileHandler.copy(src5, des5);
+
+        // iterate through to the Air Max card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
+
+        File src6 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des6 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Vomero.png");
+        FileHandler.copy(src6, des6);
+
+        // iterate through to the Blazer card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
+
+        File src7 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des7 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\Cortez.png");
+        FileHandler.copy(src7, des7);
+
+        // iterate through to the Blazer card and take a screenshot
+        swiperButtonNext.click();
+        Thread.sleep(1000);
+
+        File src8 = screenshot.getScreenshotAs(OutputType.FILE);
+        File des8 = new File("C:\\Users\\Chris\\Documents\\Shop The Classics\\C1TY.png");
+        FileHandler.copy(src8, des8);
+
+        // iterate back through the slider using the previous swiper button
         WebElement swiperButtonPrev = driver.findElement(By.className("swiper-button-prev"));
-        for (int i = 0; i < productNames.length; i++) {
-            swiperButtonPrev.click();
-            Thread.sleep(500);
-        }
+        swiperButtonPrev.click();
+        Thread.sleep(500);
+
+        swiperButtonPrev.click();
+        Thread.sleep(500);
+
+        swiperButtonPrev.click();
+        Thread.sleep(500);
+
+        swiperButtonPrev.click();
+        Thread.sleep(500);
+
+        swiperButtonPrev.click();
+        Thread.sleep(500);
+
+        swiperButtonPrev.click();
+        Thread.sleep(500);
+
+        swiperButtonPrev.click();
         Thread.sleep(1000);
     }
 
@@ -155,7 +214,7 @@ public class HomePage {
         Thread.sleep(2500);
 
         // Hover over the 'Find A Store' link
-        WebElement findAStoreMenuItem = driver.findElement(By.xpath("//*[@id=\"3895eb94-d5d8-485b-b7cc-6d64ec0b2c39\"]/div/div/nav/div[1]/ul/li[1]/a"));
+        WebElement findAStoreMenuItem = driver.findElement(By.xpath("//*[@id=\"5f0c77c8-1e19-44eb-afd3-0086047dd829\"]/div/div/nav/div[1]/ul/li[1]/a"));
         actions.moveToElement(findAStoreMenuItem).perform();
         Thread.sleep(2500);
     }
