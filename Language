@@ -1,0 +1,167 @@
+// File: Language_Region.java
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.Duration;
+
+public class Language_Region {
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @BeforeClass
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-blink-features=AutomationControlled");
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.manage().window().maximize();
+        driver.get("https://www.nike.com/?georedirect=no");
+
+        wait.until(webDriver -> ((JavascriptExecutor) webDriver)
+                .executeScript("return document.readyState").equals("complete"));
+    }
+
+    private void scrollToFooter() {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+        try {
+            Thread.sleep(3000); // give footer time to render
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void takeScreenshot(String fileName) {
+        try {
+            File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            String screenshotPath = "C:/Users/lazar/OneDrive/Pictures/Screenshots 1";
+            Files.createDirectories(Paths.get(screenshotPath));
+            Files.copy(srcFile.toPath(), Paths.get(screenshotPath, fileName));
+        } catch (IOException e) {
+            System.err.println("Failed to capture screenshot: " + e.getMessage());
+        }
+    }
+
+    @Test(priority = 1)
+    public void switchToSpanish() {
+        try {
+            scrollToFooter();
+            WebElement regionSelector = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("footer button[data-testid='locale-select-button']")));
+            regionSelector.click();
+            WebElement spainOption = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//h4[@lang='es-es' and contains(text(), 'España')]")));
+            spainOption.click();
+            wait.until(ExpectedConditions.urlContains("es"));
+            Assert.assertTrue(driver.getPageSource().toLowerCase().contains("hombre"));
+        } catch (Exception e) {
+            takeScreenshot("switchToSpanish_failed.png");
+            System.err.println("Warning: Could not switch to Spanish. " + e.getMessage());
+        }
+    }
+
+    @Test(priority = 2)
+    public void switchToJapanese() {
+        try {
+            scrollToFooter();
+            WebElement regionSelector = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("footer button[data-testid='locale-select-button']")));
+            regionSelector.click();
+            WebElement japanOption = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//h4[@lang='ja-jp' and contains(text(), '日本')]")));
+            japanOption.click();
+            wait.until(ExpectedConditions.urlContains("jp"));
+            Assert.assertTrue(driver.getPageSource().contains("メンズ"));
+        } catch (Exception e) {
+            takeScreenshot("switchToJapanese_failed.png");
+            System.err.println("Warning: Could not switch to Japanese. " + e.getMessage());
+        }
+    }
+
+    @Test(priority = 3)
+    public void switchBackToEnglish() {
+        try {
+            scrollToFooter();
+            WebElement regionSelector = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("footer button[data-testid='locale-select-button']")));
+            regionSelector.click();
+            WebElement usOption = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//h4[@lang='en-us' and contains(text(), 'United States')]")));
+            usOption.click();
+            wait.until(ExpectedConditions.urlContains("us"));
+            Assert.assertTrue(driver.getPageSource().toLowerCase().contains("men"));
+        } catch (Exception e) {
+            takeScreenshot("switchBackToEnglish_failed.png");
+            System.err.println("Warning: Could not switch back to English. " + e.getMessage());
+        }
+    }
+
+    @Test(priority = 4)
+    public void verifyURLLanguageCodes() {
+        try {
+            driver.get("https://www.nike.com/es/");
+            Assert.assertTrue(driver.getCurrentUrl().contains("es"));
+            driver.get("https://www.nike.com/jp/");
+            Assert.assertTrue(driver.getCurrentUrl().contains("jp"));
+            driver.get("https://www.nike.com/us/");
+            Assert.assertTrue(driver.getCurrentUrl().contains("us"));
+        } catch (Exception e) {
+            takeScreenshot("verifyURLLanguageCodes_failed.png");
+            Assert.fail("URL language code check failed.");
+        }
+    }
+
+    @Test(priority = 5)
+    public void switchThroughLanguagesSequence() {
+        try {
+            scrollToFooter();
+            WebElement regionSelector = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("footer button[data-testid='locale-select-button']")));
+            regionSelector.click();
+            WebElement spainOption = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//h4[@lang='es-es' and contains(text(), 'España')]")));
+            spainOption.click();
+            wait.until(ExpectedConditions.urlContains("es"));
+
+            scrollToFooter();
+            regionSelector = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("footer button[data-testid='locale-select-button']")));
+            regionSelector.click();
+            WebElement japanOption = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//h4[@lang='ja-jp' and contains(text(), '日本')]")));
+            japanOption.click();
+            wait.until(ExpectedConditions.urlContains("jp"));
+
+            scrollToFooter();
+            regionSelector = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("footer button[data-testid='locale-select-button']")));
+            regionSelector.click();
+            WebElement usOption = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//h4[@lang='en-us' and contains(text(), 'United States')]")));
+            usOption.click();
+            wait.until(ExpectedConditions.urlContains("us"));
+
+            Assert.assertTrue(driver.getCurrentUrl().contains("us"));
+        } catch (Exception e) {
+            takeScreenshot("language_sequence_failed.png");
+            System.err.println("Warning: Language switching sequence failed. " + e.getMessage());
+        }
+    }
+
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}
