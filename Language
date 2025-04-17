@@ -87,7 +87,7 @@ public class Language_Region {
             driver.get("https://www.nike.com/es/");
             wait.until(ExpectedConditions.urlContains("/es"));
             Assert.assertTrue(driver.getPageSource().toLowerCase().contains("hombre"));
-            System.out.println("✅ Spanish site content verified.");
+            System.out.println("Spanish site content verified.");
         } catch (Exception e) {
             takeScreenshot("checkSpanishSiteContent_failed.png");
             System.err.println("Warning: Could not validate Spanish site. " + e.getMessage());
@@ -101,7 +101,7 @@ public class Language_Region {
             driver.get("https://www.nike.com/jp/");
             wait.until(ExpectedConditions.urlContains("/jp"));
             Assert.assertTrue(driver.getPageSource().contains("メンズ"));
-            System.out.println("✅ Japanese site content verified.");
+            System.out.println("Japanese site content verified.");
         } catch (Exception e) {
             takeScreenshot("checkJapaneseSiteContent_failed.png");
             System.err.println("Warning: Could not validate Japanese site. " + e.getMessage());
@@ -115,7 +115,7 @@ public class Language_Region {
             driver.get("https://www.nike.com/us/");
             wait.until(ExpectedConditions.urlContains("/us"));
             Assert.assertTrue(driver.getPageSource().toLowerCase().contains("men"));
-            System.out.println("✅ English site content verified.");
+            System.out.println("English site content verified.");
         } catch (Exception e) {
             takeScreenshot("checkEnglishSiteContent_failed.png");
             System.err.println("Warning: Could not validate English site. " + e.getMessage());
@@ -135,7 +135,7 @@ public class Language_Region {
             driver.get("https://www.nike.com/us/");
             Assert.assertTrue(driver.getCurrentUrl().contains("us"));
 
-            System.out.println("✅ Language code URLs verified.");
+            System.out.println("Language code URLs verified.");
         } catch (Exception e) {
             takeScreenshot("verifyURLLanguageCodes_failed.png");
             Assert.fail("Test failed: verifyURLLanguageCodes – " + e.getMessage());
