@@ -37,7 +37,7 @@ public class NikeShoe {
         driver.findElement(By.xpath("//*[@id=\"gen-nav-commerce-header-v2\"]/nav/header/div/div/div[2]/nav/ul/li[3]/div/a")).click();
         Thread.sleep(3000);
         // click on shoes
-        driver.findElement(By.xpath("//*[@id=\"d66ff683-ed3b-4bad-aa64-366c419073b4\"]/div/div/nav/div[1]/ul/li[1]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"da387304-ef63-4e2e-a4ea-1af1d1222d26\"]/div/div/nav/div[1]/ul/li[1]/a")).click();
         Thread.sleep(3000);
         // scroll to find "Nike Wildhorse 10 Women's Trail Running Shoes"
         JavascriptExecutor js = (JavascriptExecutor) driver;
