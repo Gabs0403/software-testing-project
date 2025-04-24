@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/Users/gabri/IdeaProjects/Software_Testing_Project">
+        <classes>
+            <class name="HomePage"/>
+            <class name="Membership"/>
+            <class name="NikeFindAStore"/>
+            <class name="NikeSearch"/>
+            <class name="NikeShoe"/>
+            <class name="NikeGiftcard"/>
+            <class name="FooterLinkTests"/>
+            <class name="Language_Region"/>
+        </classes>
+    </test>
+</suite>
